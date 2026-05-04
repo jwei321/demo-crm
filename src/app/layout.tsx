@@ -7,13 +7,24 @@ export const metadata: Metadata = {
   description: "A simple CRM demo built with Next.js, Prisma, and PostgreSQL",
 };
 
+const themeInitScript = `
+(function(){try{
+var t=localStorage.getItem('theme');
+if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+document.documentElement.classList.add('dark');
+}}catch(e){}})();
+`;
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body>
         <div className="min-h-screen flex">
           <Sidebar />

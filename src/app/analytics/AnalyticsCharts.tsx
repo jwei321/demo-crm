@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   Bar,
   BarChart,
@@ -38,6 +39,22 @@ function formatUSDCompact(v: number) {
   return `$${v.toFixed(0)}`;
 }
 
+function useIsDark() {
+  const [isDark, setIsDark] = useState(false);
+  useEffect(() => {
+    const update = () =>
+      setIsDark(document.documentElement.classList.contains("dark"));
+    update();
+    const obs = new MutationObserver(update);
+    obs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => obs.disconnect();
+  }, []);
+  return isDark;
+}
+
 export default function AnalyticsCharts({
   statusData,
   stageData,
@@ -49,32 +66,40 @@ export default function AnalyticsCharts({
   industryData: { industry: string; revenue: number }[];
   monthlyContacts: { month: string; contacts: number }[];
 }) {
+  const isDark = useIsDark();
+  const tickColor = isDark ? "#94a3b8" : "#64748b";
+  const gridColor = isDark ? "#1e293b" : "#e2e8f0";
+  const tooltipStyle = {
+    borderRadius: 8,
+    border: `1px solid ${isDark ? "#1e293b" : "#e2e8f0"}`,
+    background: isDark ? "#0f172a" : "#ffffff",
+    color: isDark ? "#e2e8f0" : "#0f172a",
+    fontSize: 12,
+  } as const;
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
       <div className="card p-5">
-        <h2 className="text-sm font-semibold text-slate-900 mb-4">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-4">
           Pipeline Value by Stage
         </h2>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={stageData}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
               <XAxis
                 dataKey="stage"
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                tick={{ fontSize: 11, fill: tickColor }}
                 interval={0}
               />
               <YAxis
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                tick={{ fontSize: 11, fill: tickColor }}
                 tickFormatter={formatUSDCompact}
               />
               <Tooltip
                 formatter={(v: number) => formatUSDCompact(v)}
-                contentStyle={{
-                  borderRadius: 8,
-                  border: "1px solid #e2e8f0",
-                  fontSize: 12,
-                }}
+                contentStyle={tooltipStyle}
+                cursor={{ fill: isDark ? "#1e293b80" : "#f1f5f980" }}
               />
               <Bar dataKey="value" radius={[6, 6, 0, 0]}>
                 {stageData.map((_, i) => (
@@ -87,7 +112,7 @@ export default function AnalyticsCharts({
       </div>
 
       <div className="card p-5">
-        <h2 className="text-sm font-semibold text-slate-900 mb-4">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-4">
           Contacts by Status
         </h2>
         <div className="h-72">
@@ -110,40 +135,31 @@ export default function AnalyticsCharts({
               </Pie>
               <Legend
                 iconType="circle"
-                wrapperStyle={{ fontSize: 12 }}
+                wrapperStyle={{ fontSize: 12, color: tickColor }}
               />
-              <Tooltip
-                contentStyle={{
-                  borderRadius: 8,
-                  border: "1px solid #e2e8f0",
-                  fontSize: 12,
-                }}
-              />
+              <Tooltip contentStyle={tooltipStyle} />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
       <div className="card p-5">
-        <h2 className="text-sm font-semibold text-slate-900 mb-4">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-4">
           New Contacts (Last 6 Months)
         </h2>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={monthlyContacts}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
               <XAxis
                 dataKey="month"
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                tick={{ fontSize: 11, fill: tickColor }}
               />
-              <YAxis tick={{ fontSize: 11, fill: "#64748b" }} allowDecimals={false} />
-              <Tooltip
-                contentStyle={{
-                  borderRadius: 8,
-                  border: "1px solid #e2e8f0",
-                  fontSize: 12,
-                }}
+              <YAxis
+                tick={{ fontSize: 11, fill: tickColor }}
+                allowDecimals={false}
               />
+              <Tooltip contentStyle={tooltipStyle} />
               <Line
                 type="monotone"
                 dataKey="contacts"
@@ -158,37 +174,30 @@ export default function AnalyticsCharts({
       </div>
 
       <div className="card p-5">
-        <h2 className="text-sm font-semibold text-slate-900 mb-4">
+        <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100 mb-4">
           Revenue by Industry
         </h2>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={industryData} layout="vertical" margin={{ left: 30 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
               <XAxis
                 type="number"
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                tick={{ fontSize: 11, fill: tickColor }}
                 tickFormatter={formatUSDCompact}
               />
               <YAxis
                 type="category"
                 dataKey="industry"
-                tick={{ fontSize: 11, fill: "#64748b" }}
+                tick={{ fontSize: 11, fill: tickColor }}
                 width={110}
               />
               <Tooltip
                 formatter={(v: number) => formatUSDCompact(v)}
-                contentStyle={{
-                  borderRadius: 8,
-                  border: "1px solid #e2e8f0",
-                  fontSize: 12,
-                }}
+                contentStyle={tooltipStyle}
+                cursor={{ fill: isDark ? "#1e293b80" : "#f1f5f980" }}
               />
-              <Bar
-                dataKey="revenue"
-                fill="#3b62ff"
-                radius={[0, 6, 6, 0]}
-              />
+              <Bar dataKey="revenue" fill="#3b62ff" radius={[0, 6, 6, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

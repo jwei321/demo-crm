@@ -172,7 +172,7 @@ export default function ContactsView({
       />
 
       <div className="card overflow-hidden">
-        <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-100">
+        <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-100 dark:border-slate-800">
           <input
             className="input max-w-xs"
             placeholder="Search by name, email, or company..."
@@ -194,7 +194,7 @@ export default function ContactsView({
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="table-th">Name</th>
                 <th className="table-th">Title</th>
@@ -206,10 +206,10 @@ export default function ContactsView({
                 <th className="table-th text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filtered.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/60">
-                  <td className="table-td font-medium text-slate-900">
+                <tr key={c.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                  <td className="table-td font-medium text-slate-900 dark:text-slate-100">
                     {c.firstName} {c.lastName}
                   </td>
                   <td className="table-td">{c.title ?? "—"}</td>
@@ -217,7 +217,7 @@ export default function ContactsView({
                   <td className="table-td">
                     <a
                       href={`mailto:${c.email}`}
-                      className="text-brand-600 hover:text-brand-700"
+                      className="text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
                     >
                       {c.email}
                     </a>
@@ -231,7 +231,7 @@ export default function ContactsView({
                   <td className="table-td">{formatDate(c.createdAt)}</td>
                   <td className="table-td text-right whitespace-nowrap">
                     <button
-                      className="text-xs font-medium text-slate-600 hover:text-slate-900 mr-3"
+                      className="text-xs font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 mr-3"
                       onClick={() => openEdit(c)}
                     >
                       Edit
@@ -247,7 +247,7 @@ export default function ContactsView({
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-10 text-center text-sm text-slate-500">
+                  <td colSpan={8} className="px-4 py-10 text-center text-sm text-slate-500 dark:text-slate-400">
                     No contacts match your filters.
                   </td>
                 </tr>
@@ -355,7 +355,7 @@ export default function ContactsView({
           </div>
 
           {error && (
-            <div className="text-sm text-rose-600 bg-rose-50 ring-1 ring-rose-200 rounded-lg px-3 py-2">
+            <div className="text-sm text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-500/10 ring-1 ring-rose-200 dark:ring-rose-500/30 rounded-lg px-3 py-2">
               {error}
             </div>
           )}

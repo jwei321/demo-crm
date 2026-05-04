@@ -162,14 +162,14 @@ export default async function AnalyticsPage() {
       />
 
       <div className="card mt-6 overflow-hidden">
-        <div className="px-5 py-4 border-b border-slate-100">
-          <h2 className="text-sm font-semibold text-slate-900">
+        <div className="px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
             Top Accounts by Activity
           </h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="table-th">Company</th>
                 <th className="table-th">Industry</th>
@@ -178,10 +178,10 @@ export default async function AnalyticsPage() {
                 <th className="table-th">Annual Revenue</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {topCompanies.map((c) => (
                 <tr key={c.name}>
-                  <td className="table-td font-medium text-slate-900">
+                  <td className="table-td font-medium text-slate-900 dark:text-slate-100">
                     {c.name}
                   </td>
                   <td className="table-td">{c.industry}</td>

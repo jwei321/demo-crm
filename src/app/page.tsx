@@ -79,8 +79,8 @@ export default async function DashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         <div className="card overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-            <h2 className="text-sm font-semibold text-slate-900">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Recent Contacts
             </h2>
             <Link
@@ -90,17 +90,17 @@ export default async function DashboardPage() {
               View all →
             </Link>
           </div>
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800">
             {recentContacts.map((c) => (
               <li
                 key={c.id}
                 className="px-5 py-3 flex items-center justify-between gap-3"
               >
                 <div className="min-w-0">
-                  <div className="text-sm font-medium text-slate-900 truncate">
+                  <div className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
                     {c.firstName} {c.lastName}
                   </div>
-                  <div className="text-xs text-slate-500 truncate">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
                     {c.title ?? "—"}
                     {c.company ? ` · ${c.company.name}` : ""}
                   </div>
@@ -113,7 +113,7 @@ export default async function DashboardPage() {
               </li>
             ))}
             {recentContacts.length === 0 && (
-              <li className="px-5 py-6 text-sm text-slate-500">
+              <li className="px-5 py-6 text-sm text-slate-500 dark:text-slate-400">
                 No contacts yet.
               </li>
             )}
@@ -121,8 +121,8 @@ export default async function DashboardPage() {
         </div>
 
         <div className="card overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100">
-            <h2 className="text-sm font-semibold text-slate-900">
+          <div className="flex items-center justify-between px-5 py-4 border-b border-slate-100 dark:border-slate-800">
+            <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
               Recent Deals
             </h2>
             <Link
@@ -132,17 +132,17 @@ export default async function DashboardPage() {
               View analytics →
             </Link>
           </div>
-          <ul className="divide-y divide-slate-100">
+          <ul className="divide-y divide-slate-100 dark:divide-slate-800">
             {recentDeals.map((d) => (
               <li
                 key={d.id}
                 className="px-5 py-3 flex items-center justify-between gap-3"
               >
                 <div className="min-w-0">
-                  <div className="text-sm font-medium text-slate-900 truncate">
+                  <div className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
                     {d.title}
                   </div>
-                  <div className="text-xs text-slate-500 truncate">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 truncate">
                     {d.company?.name ?? "—"} ·{" "}
                     {d.expectedCloseDate
                       ? `Closes ${formatDate(d.expectedCloseDate)}`
@@ -152,7 +152,7 @@ export default async function DashboardPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3 whitespace-nowrap">
-                  <span className="text-sm font-medium text-slate-900 tabular-nums">
+                  <span className="text-sm font-medium text-slate-900 dark:text-slate-100 tabular-nums">
                     {formatCurrency(Number(d.value))}
                   </span>
                   <span className={`pill ${stageColor(d.stage)}`}>
@@ -162,7 +162,7 @@ export default async function DashboardPage() {
               </li>
             ))}
             {recentDeals.length === 0 && (
-              <li className="px-5 py-6 text-sm text-slate-500">
+              <li className="px-5 py-6 text-sm text-slate-500 dark:text-slate-400">
                 No deals yet.
               </li>
             )}

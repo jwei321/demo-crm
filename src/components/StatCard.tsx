@@ -9,13 +9,15 @@ export default function StatCard({
 }) {
   return (
     <div className="card p-5">
-      <div className="text-xs uppercase tracking-wide text-slate-500 font-semibold">
+      <div className="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 font-semibold">
         {label}
       </div>
-      <div className="mt-2 text-2xl font-semibold text-slate-900 tabular-nums">
+      <div className="mt-2 text-2xl font-semibold text-slate-900 dark:text-slate-100 tabular-nums">
         {value}
       </div>
-      {hint && <div className="mt-1 text-xs text-slate-500">{hint}</div>}
+      {hint && (
+        <div className="mt-1 text-xs text-slate-500 dark:text-slate-400">{hint}</div>
+      )}
     </div>
   );
 }

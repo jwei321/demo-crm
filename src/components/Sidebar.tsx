@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "/", label: "Dashboard", icon: "M3 12 12 4l9 8M5 10v10h14V10" },
@@ -13,15 +14,15 @@ const links = [
 export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <aside className="hidden md:flex md:w-64 md:flex-col border-r border-slate-200 bg-white">
-      <div className="px-6 py-6 border-b border-slate-200">
+    <aside className="hidden md:flex md:w-64 md:flex-col border-r border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800">
+      <div className="px-6 py-6 border-b border-slate-200 dark:border-slate-800">
         <Link href="/" className="flex items-center gap-2">
           <div className="h-9 w-9 rounded-lg bg-brand-600 text-white grid place-items-center font-bold">
             D
           </div>
           <div>
-            <div className="text-sm font-semibold text-slate-900">Demo CRM</div>
-            <div className="text-xs text-slate-500">Northwind Demo Co.</div>
+            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Demo CRM</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">Northwind Demo Co.</div>
           </div>
         </Link>
       </div>
@@ -37,8 +38,8 @@ export default function Sidebar() {
               href={link.href}
               className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${
                 active
-                  ? "bg-brand-50 text-brand-700"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  ? "bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300"
+                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               }`}
             >
               <svg
@@ -57,7 +58,10 @@ export default function Sidebar() {
           );
         })}
       </nav>
-      <div className="px-6 py-4 border-t border-slate-200 text-xs text-slate-500">
+      <div className="px-3 py-3 border-t border-slate-200 dark:border-slate-800">
+        <ThemeToggle />
+      </div>
+      <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
         v1.0 — demo build
       </div>
     </aside>

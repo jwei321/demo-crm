@@ -179,7 +179,7 @@ export default function CompaniesView({
       />
 
       <div className="card overflow-hidden">
-        <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-100">
+        <div className="flex flex-wrap items-center gap-2 px-4 py-3 border-b border-slate-100 dark:border-slate-800">
           <input
             className="input max-w-xs"
             placeholder="Search by name, industry, location..."
@@ -202,7 +202,7 @@ export default function CompaniesView({
 
         <div className="overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="table-th">Name</th>
                 <th className="table-th">Industry</th>
@@ -214,16 +214,16 @@ export default function CompaniesView({
                 <th className="table-th text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filtered.map((c) => (
-                <tr key={c.id} className="hover:bg-slate-50/60">
-                  <td className="table-td font-medium text-slate-900">
+                <tr key={c.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
+                  <td className="table-td font-medium text-slate-900 dark:text-slate-100">
                     {c.website ? (
                       <a
                         href={c.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-brand-600"
+                        className="hover:text-brand-600 dark:hover:text-brand-400"
                       >
                         {c.name}
                       </a>
@@ -245,7 +245,7 @@ export default function CompaniesView({
                   <td className="table-td tabular-nums">{c._count.deals}</td>
                   <td className="table-td text-right whitespace-nowrap">
                     <button
-                      className="text-xs font-medium text-slate-600 hover:text-slate-900 mr-3"
+                      className="text-xs font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 mr-3"
                       onClick={() => openEdit(c)}
                     >
                       Edit
@@ -261,7 +261,7 @@ export default function CompaniesView({
               ))}
               {filtered.length === 0 && (
                 <tr>
-                  <td colSpan={8} className="px-4 py-10 text-center text-sm text-slate-500">
+                  <td colSpan={8} className="px-4 py-10 text-center text-sm text-slate-500 dark:text-slate-400">
                     No companies match your filters.
                   </td>
                 </tr>
@@ -350,7 +350,7 @@ export default function CompaniesView({
           </div>
 
           {error && (
-            <div className="text-sm text-rose-600 bg-rose-50 ring-1 ring-rose-200 rounded-lg px-3 py-2">
+            <div className="text-sm text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-500/10 ring-1 ring-rose-200 dark:ring-rose-500/30 rounded-lg px-3 py-2">
               {error}
             </div>
           )}
