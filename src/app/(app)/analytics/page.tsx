@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { requireUser } from "@/lib/auth";
 import PageHeader from "@/components/PageHeader";
 import StatCard from "@/components/StatCard";
 import AnalyticsCharts from "./AnalyticsCharts";
@@ -7,9 +8,14 @@ import { formatCurrency, formatNumber } from "@/lib/format";
 export const dynamic = "force-dynamic";
 
 export default async function AnalyticsPage() {
+  const { sub: userId } = await requireUser();
   const [contacts, deals, companies] = await Promise.all([
-    prisma.contact.findMany({ select: { status: true, createdAt: true } }),
+    prisma.contact.findMany({
+      where: { userId },
+      select: { status: true, createdAt: true },
+    }),
     prisma.deal.findMany({
+      where: { userId },
       select: {
         stage: true,
         value: true,
@@ -19,6 +25,7 @@ export default async function AnalyticsPage() {
       },
     }),
     prisma.company.findMany({
+      where: { userId },
       select: {
         name: true,
         industry: true,

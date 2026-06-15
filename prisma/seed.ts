@@ -5,8 +5,16 @@ const prisma = new PrismaClient();
 
 async function main() {
   console.log("Seeding database...");
-  const counts = await runSeed(prisma);
-  console.log("Seed complete:", counts);
+  const result = await runSeed(prisma);
+  console.log("Seed complete:", {
+    users: result.users,
+    companies: result.companies,
+    contacts: result.contacts,
+    deals: result.deals,
+  });
+  console.log("\nDemo login:");
+  console.log(`  email:    ${result.demoLogin.email}`);
+  console.log(`  password: ${result.demoLogin.password}`);
 }
 
 main()

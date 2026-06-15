@@ -1,9 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
 import Logo from "./Logo";
+
+function initialsFromName(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  const first = parts[0]?.charAt(0) ?? "";
+  const last = parts.length > 1 ? parts[parts.length - 1].charAt(0) : "";
+  return (first + last).toUpperCase() || "?";
+}
 
 const links = [
   { href: "/", label: "Dashboard", icon: "M3 12 12 4l9 8M5 10v10h14V10" },
@@ -13,8 +20,20 @@ const links = [
   { href: "/analytics", label: "Analytics", icon: "M3 3v18h18M7 14l4-4 4 4 5-5" },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({
+  user,
+}: {
+  user: { name: string; email: string };
+}) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  async function logout() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    router.push("/login");
+    router.refresh();
+  }
+
   return (
     <aside className="hidden md:flex md:w-64 md:flex-col border-r border-slate-200 bg-white/80 backdrop-blur dark:bg-slate-900/60 dark:border-slate-800">
       <div className="px-5 py-5 border-b border-slate-200 dark:border-slate-800">
@@ -76,18 +95,35 @@ export default function Sidebar() {
 
       <div className="px-4 py-4 border-t border-slate-200 dark:border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="avatar h-9 w-9 bg-brand-gradient">JD</div>
-          <div className="min-w-0">
+          <div className="avatar h-9 w-9 bg-brand-gradient">
+            {initialsFromName(user.name)}
+          </div>
+          <div className="min-w-0 flex-1">
             <div className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
-              Jordan Davies
+              {user.name}
             </div>
             <div className="truncate text-xs text-slate-500 dark:text-slate-400">
-              Sales Manager
+              {user.email}
             </div>
           </div>
-        </div>
-        <div className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
-          Relay v2.0 · Live demo
+          <button
+            onClick={logout}
+            title="Sign out"
+            aria-label="Sign out"
+            className="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-rose-500 dark:hover:bg-slate-800"
+          >
+            <svg
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              viewBox="0 0 24 24"
+            >
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9" />
+            </svg>
+          </button>
         </div>
       </div>
     </aside>

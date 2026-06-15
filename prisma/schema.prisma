@@ -1,4 +1,4 @@
-// Prisma schema for the Demo CRM
+// Prisma schema for Relay CRM
 // Docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -8,6 +8,19 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  companies Company[]
+  contacts  Contact[]
+  deals     Deal[]
 }
 
 model Company {
@@ -22,9 +35,13 @@ model Company {
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   contacts    Contact[]
   deals       Deal[]
 
+  @@index([userId])
   @@index([name])
   @@index([industry])
 }
@@ -33,7 +50,7 @@ model Contact {
   id         String   @id @default(cuid())
   firstName  String
   lastName   String
-  email      String   @unique
+  email      String
   phone      String?
   title      String?
   status     ContactStatus @default(LEAD)
@@ -42,8 +59,13 @@ model Contact {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   deals      Deal[]
 
+  @@unique([userId, email])
+  @@index([userId])
   @@index([lastName])
   @@index([status])
   @@index([companyId])
@@ -70,6 +92,10 @@ model Deal {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
   @@index([stage])
   @@index([companyId])
   @@index([contactId])

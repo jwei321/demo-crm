@@ -1,7 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import Sidebar from "@/components/Sidebar";
-import TopBar from "@/components/TopBar";
 
 export const metadata: Metadata = {
   title: "Relay — Relationships in motion",
@@ -37,17 +35,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
-        <div className="min-h-screen flex">
-          <Sidebar />
-          <main className="flex-1 min-w-0 flex flex-col">
-            <TopBar />
-            <div className="mx-auto w-full max-w-7xl px-5 py-6 sm:px-6 sm:py-8 animate-fade-in">
-              {children}
-            </div>
-          </main>
-        </div>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

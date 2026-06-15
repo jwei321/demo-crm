@@ -1,4 +1,5 @@
 import type { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const companiesData = [
   { name: "Northwind Robotics", industry: "Manufacturing", website: "https://northwind-robotics.example.com", employees: 320, annualRevenue: 48_000_000, city: "Detroit", country: "USA" },
@@ -37,27 +38,38 @@ function randomDate(daysBack: number, daysForward = 0): Date {
   return new Date(min + Math.random() * (max - min));
 }
 
-export async function runSeed(prisma: PrismaClient) {
-  await prisma.deal.deleteMany();
-  await prisma.contact.deleteMany();
-  await prisma.company.deleteMany();
+/**
+ * Seed sample companies, contacts, and deals for a single user's workspace.
+ * Does not touch other users' data.
+ */
+export async function seedWorkspace(
+  prisma: PrismaClient,
+  userId: string,
+  opts: { companies?: number; contacts?: number; deals?: number } = {},
+) {
+  const companyCount = Math.min(opts.companies ?? 10, companiesData.length);
+  const contactCount = opts.contacts ?? 36;
+  const dealCount = opts.deals ?? 48;
 
   const companies = await Promise.all(
-    companiesData.map((c) => prisma.company.create({ data: c })),
+    companiesData
+      .slice(0, companyCount)
+      .map((c) => prisma.company.create({ data: { ...c, userId } })),
   );
 
   const statuses = ["LEAD", "QUALIFIED", "CUSTOMER", "CHURNED"] as const;
   const usedEmails = new Set<string>();
-  const contacts: Awaited<ReturnType<typeof prisma.contact.create>>[] = [];
-  for (let i = 0; i < 60; i++) {
+  const contacts: { id: string; companyId: string | null }[] = [];
+  for (let i = 0; i < contactCount; i++) {
     const firstName = pick(firstNames);
     const lastName = pick(lastNames);
     const company = pick(companies);
     const baseEmail = `${firstName.toLowerCase()}.${lastName.toLowerCase()}`.replace(/[^a-z0-9.]/g, "");
-    let email = `${baseEmail}@${company.name.toLowerCase().replace(/[^a-z0-9]/g, "")}.com`;
+    const domain = company.name.toLowerCase().replace(/[^a-z0-9]/g, "");
+    let email = `${baseEmail}@${domain}.com`;
     let suffix = 1;
     while (usedEmails.has(email)) {
-      email = `${baseEmail}${suffix}@${company.name.toLowerCase().replace(/[^a-z0-9]/g, "")}.com`;
+      email = `${baseEmail}${suffix}@${domain}.com`;
       suffix++;
     }
     usedEmails.add(email);
@@ -71,21 +83,15 @@ export async function runSeed(prisma: PrismaClient) {
         title: pick(titles),
         status: pick(statuses),
         companyId: company.id,
+        userId,
         createdAt: randomDate(180),
       },
     });
-    contacts.push(contact);
+    contacts.push({ id: contact.id, companyId: contact.companyId });
   }
 
-  const stages = [
-    "PROSPECTING",
-    "QUALIFICATION",
-    "PROPOSAL",
-    "NEGOTIATION",
-    "CLOSED_WON",
-    "CLOSED_LOST",
-  ] as const;
-  for (let i = 0; i < 80; i++) {
+  const stages = ["PROSPECTING", "QUALIFICATION", "PROPOSAL", "NEGOTIATION", "CLOSED_WON", "CLOSED_LOST"] as const;
+  for (let i = 0; i < dealCount; i++) {
     const company = pick(companies);
     const companyContacts = contacts.filter((c) => c.companyId === company.id);
     const contact = companyContacts.length ? pick(companyContacts) : pick(contacts);
@@ -99,6 +105,7 @@ export async function runSeed(prisma: PrismaClient) {
         stage,
         companyId: company.id,
         contactId: contact.id,
+        userId,
         expectedCloseDate: isClosed ? null : randomDate(0, 90),
         closedAt: isClosed ? randomDate(120) : null,
         createdAt: randomDate(180),
@@ -107,6 +114,42 @@ export async function runSeed(prisma: PrismaClient) {
   }
 
   return {
+    companies: companies.length,
+    contacts: contactCount,
+    deals: dealCount,
+  };
+}
+
+/**
+ * CLI seed: resets the database, creates a demo account, and fills its
+ * workspace with the full sample dataset. Used by `npm run db:seed`.
+ */
+export async function runSeed(prisma: PrismaClient) {
+  await prisma.deal.deleteMany();
+  await prisma.contact.deleteMany();
+  await prisma.company.deleteMany();
+  await prisma.user.deleteMany();
+
+  const demoEmail = process.env.DEMO_EMAIL || "demo@relay.app";
+  const demoPassword = process.env.DEMO_PASSWORD || "relay1234";
+
+  const demo = await prisma.user.create({
+    data: {
+      email: demoEmail,
+      name: "Jordan Davies",
+      passwordHash: await bcrypt.hash(demoPassword, 10),
+    },
+  });
+
+  await seedWorkspace(prisma, demo.id, {
+    companies: 12,
+    contacts: 60,
+    deals: 80,
+  });
+
+  return {
+    demoLogin: { email: demoEmail, password: demoPassword },
+    users: await prisma.user.count(),
     companies: await prisma.company.count(),
     contacts: await prisma.contact.count(),
     deals: await prisma.deal.count(),

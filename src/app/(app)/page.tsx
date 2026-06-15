@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { requireUser } from "@/lib/auth";
 import StatCard from "@/components/StatCard";
 import Icon from "@/components/Icon";
 import {
@@ -18,6 +19,9 @@ import {
 export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
+  const { sub: userId, name } = await requireUser();
+  const firstName = name.trim().split(/\s+/)[0] || "there";
+
   const [
     companyCount,
     contactCount,
@@ -28,28 +32,31 @@ export default async function DashboardPage() {
     recentContacts,
     recentDeals,
   ] = await Promise.all([
-    prisma.company.count(),
-    prisma.contact.count(),
-    prisma.contact.count({ where: { status: "CUSTOMER" } }),
+    prisma.company.count({ where: { userId } }),
+    prisma.contact.count({ where: { userId } }),
+    prisma.contact.count({ where: { userId, status: "CUSTOMER" } }),
     prisma.deal.findMany({
-      where: { stage: { notIn: ["CLOSED_WON", "CLOSED_LOST"] } },
+      where: { userId, stage: { notIn: ["CLOSED_WON", "CLOSED_LOST"] } },
       select: { value: true },
     }),
     prisma.deal.findMany({
-      where: { stage: "CLOSED_WON" },
+      where: { userId, stage: "CLOSED_WON" },
       select: { value: true },
     }),
     prisma.deal.groupBy({
       by: ["stage"],
+      where: { userId },
       _count: { _all: true },
       _sum: { value: true },
     }),
     prisma.contact.findMany({
+      where: { userId },
       orderBy: { createdAt: "desc" },
       take: 6,
       include: { company: true },
     }),
     prisma.deal.findMany({
+      where: { userId },
       orderBy: { createdAt: "desc" },
       take: 6,
       include: { company: true, contact: true },
@@ -78,7 +85,9 @@ export default async function DashboardPage() {
       <div className="relative overflow-hidden rounded-3xl bg-brand-radial p-6 text-white shadow-lift sm:p-8">
         <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-white/10 blur-2xl" />
         <div className="relative">
-          <p className="text-sm font-medium text-white/70">Welcome back, Jordan 👋</p>
+          <p className="text-sm font-medium text-white/70">
+            Welcome back, {firstName} 👋
+          </p>
           <h1 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
             Here&apos;s what&apos;s moving today
           </h1>
