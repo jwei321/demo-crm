@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
 
 const links = [
   { href: "/", label: "Dashboard", icon: "M3 12 12 4l9 8M5 10v10h14V10" },
+  { href: "/deals", label: "Pipeline", icon: "M3 3v18h18M7 15l3-3 3 3 5-6" },
   { href: "/contacts", label: "Contacts", icon: "M16 14a4 4 0 1 0-8 0M4 20a8 8 0 1 1 16 0" },
   { href: "/companies", label: "Companies", icon: "M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01" },
   { href: "/analytics", label: "Analytics", icon: "M3 3v18h18M7 14l4-4 4 4 5-5" },
@@ -14,19 +16,25 @@ const links = [
 export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <aside className="hidden md:flex md:w-64 md:flex-col border-r border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800">
-      <div className="px-6 py-6 border-b border-slate-200 dark:border-slate-800">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="h-9 w-9 rounded-lg bg-brand-600 text-white grid place-items-center font-bold">
-            D
-          </div>
+    <aside className="hidden md:flex md:w-64 md:flex-col border-r border-slate-200 bg-white/80 backdrop-blur dark:bg-slate-900/60 dark:border-slate-800">
+      <div className="px-5 py-5 border-b border-slate-200 dark:border-slate-800">
+        <Link href="/" className="flex items-center gap-2.5">
+          <Logo className="h-9 w-9" />
           <div>
-            <div className="text-sm font-semibold text-slate-900 dark:text-slate-100">Demo CRM</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400">Northwind Demo Co.</div>
+            <div className="text-base font-bold tracking-tight text-slate-900 dark:text-slate-100">
+              Relay
+            </div>
+            <div className="text-[11px] text-slate-500 dark:text-slate-400">
+              Northwind Demo Co.
+            </div>
           </div>
         </Link>
       </div>
+
       <nav className="flex-1 px-3 py-4 space-y-1">
+        <div className="px-3 pb-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+          Workspace
+        </div>
         {links.map((link) => {
           const active =
             link.href === "/"
@@ -36,12 +44,15 @@ export default function Sidebar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition ${
+              className={`group relative flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition ${
                 active
                   ? "bg-brand-50 text-brand-700 dark:bg-brand-500/10 dark:text-brand-300"
-                  : "text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
+                  : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-100"
               }`}
             >
+              {active && (
+                <span className="absolute left-0 top-1/2 h-5 w-1 -translate-y-1/2 rounded-r-full bg-brand-600 dark:bg-brand-400" />
+              )}
               <svg
                 className="h-5 w-5"
                 fill="none"
@@ -58,11 +69,26 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
       <div className="px-3 py-3 border-t border-slate-200 dark:border-slate-800">
         <ThemeToggle />
       </div>
-      <div className="px-6 py-4 border-t border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400">
-        v1.0 — demo build
+
+      <div className="px-4 py-4 border-t border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-3">
+          <div className="avatar h-9 w-9 bg-brand-gradient">JD</div>
+          <div className="min-w-0">
+            <div className="truncate text-sm font-medium text-slate-900 dark:text-slate-100">
+              Jordan Davies
+            </div>
+            <div className="truncate text-xs text-slate-500 dark:text-slate-400">
+              Sales Manager
+            </div>
+          </div>
+        </div>
+        <div className="mt-3 text-[11px] text-slate-400 dark:text-slate-500">
+          Relay v2.0 · Live demo
+        </div>
       </div>
     </aside>
   );

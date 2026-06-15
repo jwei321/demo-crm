@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import PageHeader from "@/components/PageHeader";
 import Modal from "@/components/Modal";
-import { formatDate, statusColor } from "@/lib/format";
+import { avatarColor, formatDate, initials, statusColor } from "@/lib/format";
 
 type Contact = {
   id: string;
@@ -210,7 +210,12 @@ export default function ContactsView({
               {filtered.map((c) => (
                 <tr key={c.id} className="hover:bg-slate-50/60 dark:hover:bg-slate-800/40">
                   <td className="table-td font-medium text-slate-900 dark:text-slate-100">
-                    {c.firstName} {c.lastName}
+                    <div className="flex items-center gap-3">
+                      <span className={`avatar h-8 w-8 ${avatarColor(c.id)}`}>
+                        {initials(c.firstName, c.lastName)}
+                      </span>
+                      {c.firstName} {c.lastName}
+                    </div>
                   </td>
                   <td className="table-td">{c.title ?? "—"}</td>
                   <td className="table-td">{c.company?.name ?? "—"}</td>

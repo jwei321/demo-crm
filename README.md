@@ -1,15 +1,25 @@
-# Demo CRM
+# Relay — Relationships in motion
 
-A fully functional demo CRM built with **Next.js 14**, **Prisma**, **PostgreSQL**, **Tailwind CSS**, and **Recharts**. It ships with seeded mock data for a fictional sales team and is ready to deploy to Railway in a few clicks.
+**Relay** is a modern, fast, and beautiful CRM for sales teams. Track your
+contacts, accounts, and deal pipeline in one focused workspace — with a drag-and-drop
+Kanban board, live analytics, and a clean indigo-violet design system.
+
+Built with **Next.js 14**, **Prisma**, **PostgreSQL**, **Tailwind CSS**, and **Recharts**,
+it ships with seeded demo data and deploys to the cloud (Railway) in a few clicks.
+
+> This repo is a fully working **live demo** — every page is connected to a real
+> cloud database. See [BRAND.md](./BRAND.md) for the design system and
+> [ROADMAP.md](./ROADMAP.md) for what to build next.
 
 ## Features
 
-- **Dashboard** — pipeline value, customer counts, recent contacts and deals
-- **Contacts** — full CRUD with search, status filter, and company linking
-- **Companies** — full CRUD with industry filter, deal counts, contact counts
-- **Analytics** — pipeline-by-stage bar chart, contact status pie, monthly contact growth, revenue-by-industry chart, top accounts table
-- **PostgreSQL** persistence via Prisma ORM
-- **Mock data seeder** — 12 companies, 60 contacts, 80 deals
+- **Dashboard** — a gradient "what's moving today" hero, KPI cards with trend chips, an open-pipeline-by-stage strip, and recent contacts/deals.
+- **Pipeline (Kanban)** — drag deals between stages, board ⇄ list views, inline create/edit/delete, and automatic close-date handling when a deal is won or lost. *(New in v2.)*
+- **Contacts** — full CRUD with avatars, search, status filter, and company linking.
+- **Companies** — full CRUD with industry filter, revenue/headcount rollups, and deal/contact counts.
+- **Analytics** — pipeline-by-stage, contact-status mix, monthly growth, revenue-by-industry, and a top-accounts table.
+- **Dark mode** — system-aware with a manual toggle.
+- **Cloud persistence** — PostgreSQL via Prisma, with seeded mock data (12 companies, 60 contacts, 80 deals).
 
 ## Tech Stack
 
@@ -18,7 +28,7 @@ A fully functional demo CRM built with **Next.js 14**, **Prisma**, **PostgreSQL*
 | Framework   | Next.js 14 (App Router, Server Comp.)   |
 | Database    | PostgreSQL                              |
 | ORM         | Prisma 5                                |
-| Styling     | Tailwind CSS                            |
+| Styling     | Tailwind CSS + custom design tokens     |
 | Charts      | Recharts                                |
 | Hosting     | Railway (auto-detected via Nixpacks)    |
 
@@ -32,8 +42,6 @@ npm install
 
 ### 2. Configure your database
 
-Copy the env template and point `DATABASE_URL` at a Postgres instance.
-
 ```bash
 cp .env.example .env
 ```
@@ -41,7 +49,7 @@ cp .env.example .env
 The fastest local Postgres is Docker:
 
 ```bash
-docker run --name demo-crm-pg -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16
+docker run --name relay-pg -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:16
 ```
 
 Then in `.env`:
@@ -65,43 +73,35 @@ npm run dev
 
 Visit [http://localhost:3000](http://localhost:3000).
 
-## Deploying to GitHub + Railway
+## The Cloud System (data storage)
 
-### Step 1 — Push to GitHub
+Relay stores all data in a **managed PostgreSQL database in the cloud**. The
+architecture is deliberately simple and inexpensive:
 
-```bash
-git init
-git add .
-git commit -m "Initial CRM app"
-git branch -M main
-git remote add origin https://github.com/<your-username>/demo-crm.git
-git push -u origin main
+```
+Code (GitHub)  ──push──▶  Railway  ──▶  Next.js web app  ──▶  PostgreSQL
 ```
 
-### Step 2 — Create the Railway project
+- **Railway** hosts both the web app and the Postgres database, injecting
+  `DATABASE_URL` into the app automatically.
+- Every push to `main` triggers an automatic redeploy.
+- `railway.json` runs `prisma db push` on each start, so schema changes go
+  live with the deploy.
 
-1. Go to [railway.app](https://railway.app) and click **New Project → Deploy from GitHub repo**.
-2. Select your `demo-crm` repository. Railway will auto-detect Next.js and start building.
-3. From the project canvas, click **+ New → Database → Add PostgreSQL**. Railway will provision Postgres and inject `DATABASE_URL` automatically into the web service.
-4. (Optional) Open the web service → **Variables** tab and confirm `DATABASE_URL` is referenced (e.g. `${{Postgres.DATABASE_URL}}`).
-5. Trigger a redeploy. The included `railway.json` runs `prisma db push` on every start, so the schema is created automatically.
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for the full diagram and the exact
+setup steps, including how to seed the cloud database after the first deploy.
 
-### Step 3 — Seed mock data on Railway
+### Deploying to Railway (short version)
 
-After the first successful deploy, run the seed script using the Railway CLI:
-
-```bash
-npm i -g @railway/cli
-railway login
-railway link              # select your project
-railway run npm run db:seed
-```
-
-This connects to your Railway Postgres using the project env vars and populates 12 companies, 60 contacts, and 80 deals.
-
-### Step 4 — Add a public domain
-
-In the Railway service → **Settings** → **Networking** → **Generate Domain**. Your CRM is now live on the internet.
+1. Push this repo to GitHub.
+2. On [railway.app](https://railway.app): **New Project → Deploy from GitHub repo**.
+3. **+ New → Database → Add PostgreSQL** (Railway injects `DATABASE_URL`).
+4. After the first deploy, seed the cloud DB once:
+   ```bash
+   npm i -g @railway/cli && railway login && railway link
+   railway run npm run db:seed
+   ```
+5. **Settings → Networking → Generate Domain** to get a public URL.
 
 ## Project Structure
 
@@ -111,17 +111,19 @@ prisma/
   seed.ts                # Mock data generator
 src/
   app/
-    page.tsx             # Dashboard
+    page.tsx             # Dashboard (hero + KPIs + pipeline strip)
+    deals/               # Pipeline Kanban + list + CRUD modal
     contacts/            # Contacts page + CRUD modal
     companies/           # Companies page + CRUD modal
     analytics/           # Charts + KPIs
     api/
+      deals/             # GET, POST, PATCH, DELETE
       contacts/          # GET, POST, PATCH, DELETE
       companies/         # GET, POST, PATCH, DELETE
-  components/            # Sidebar, Modal, StatCard, PageHeader
+  components/            # Sidebar, TopBar, Logo, Modal, StatCard, Icon, PageHeader
   lib/
     prisma.ts            # Singleton Prisma client
-    format.ts            # Currency / date / status helpers
+    format.ts            # Currency / date / avatar / stage helpers
 railway.json             # Railway deploy config
 ```
 
@@ -138,25 +140,10 @@ railway.json             # Railway deploy config
 
 ## Notes
 
-- This is a demo without authentication. Before exposing to real users, gate the routes (e.g. with [NextAuth](https://next-auth.js.org/)) or restrict access at the network layer.
-- Prisma Decimal fields are serialized to plain numbers at the page boundary, so `Decimal` objects don't leak into client components.
-- The seed script is idempotent — running it again wipes all data first, then re-inserts a fresh dataset.
-
-### Windows + Node 24 install note
-
-If `npm install` fails with a Prisma `preinstall-entry.js` "Cannot find module" error (a known interaction between Node 24, npm scripts, and the OneDrive folder layout), run:
-
-```bash
-npm install --ignore-scripts
-node ./node_modules/prisma/build/index.js generate
-```
-
-Then use the direct binary paths during local dev:
-
-```bash
-node ./node_modules/prisma/build/index.js db push
-node ./node_modules/.bin/tsx prisma/seed.ts
-node ./node_modules/next/dist/bin/next dev
-```
-
-Linux containers (including Railway) are unaffected — the standard `npm` scripts work there.
+- This is a demo without authentication. Before exposing to real users, gate the
+  routes (e.g. with [NextAuth](https://next-auth.js.org/)) — see the
+  Authentication item in [ROADMAP.md](./ROADMAP.md).
+- The seed script is idempotent — running it wipes all data first, then inserts a
+  fresh dataset. Seeding is intentionally CLI-only (no public endpoint).
+- Prisma `Decimal` fields are serialized to plain numbers at the page boundary,
+  so they don't leak into client components.
