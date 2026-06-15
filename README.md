@@ -138,12 +138,35 @@ railway.json             # Railway deploy config
 | `npm run db:seed`    | Insert mock companies, contacts, and deals     |
 | `npm run db:reset`   | Wipe and re-create the database (dev only)     |
 
+## Authentication
+
+Relay ships with real multi-user auth (no external auth provider needed):
+
+| Flow | How it works |
+|------|-------------|
+| **Sign up** | `/signup` → hashes password with bcrypt, creates a `User` row, signs an httpOnly JWT cookie, optionally seeds sample data into the new workspace. |
+| **Sign in** | `/login` → verifies password, issues a 7-day session cookie. |
+| **Sign out** | Sidebar logout button → `POST /api/auth/logout` → clears the cookie. |
+| **Protection** | Edge middleware redirects unauthenticated page visits to `/login`; API routes return 401. |
+| **Data isolation** | Every contact, company, and deal is scoped to `userId`. Cross-account access is impossible at the query layer — not just the middleware layer. |
+
+### Required env vars for production
+
+```
+DATABASE_URL=   # injected by Railway automatically
+AUTH_SECRET=    # long random string for signing JWTs — generate with: openssl rand -base64 32
+```
+
+### Demo account
+
+After `npm run db:seed`, log in with:
+- **Email:** `demo@relay.app`
+- **Password:** `relay1234`
+
+(These are configurable via `DEMO_EMAIL` / `DEMO_PASSWORD` env vars.)
+
 ## Notes
 
-- This is a demo without authentication. Before exposing to real users, gate the
-  routes (e.g. with [NextAuth](https://next-auth.js.org/)) — see the
-  Authentication item in [ROADMAP.md](./ROADMAP.md).
-- The seed script is idempotent — running it wipes all data first, then inserts a
-  fresh dataset. Seeding is intentionally CLI-only (no public endpoint).
-- Prisma `Decimal` fields are serialized to plain numbers at the page boundary,
-  so they don't leak into client components.
+- The seed script is idempotent — running it wipes all data first, then re-creates the demo account and its workspace. Seeding is intentionally CLI-only (no public endpoint).
+- Prisma `Decimal` fields are serialized to plain numbers at the page boundary, so they don't leak into client components.
+- **First Railway deploy with auth:** the `User` table is new, so you need a one-time schema reset. After deploying, run: `railway run npx prisma db push --force-reset` then `railway run npm run db:seed`. After that, `prisma db push` (without `--force-reset`) on subsequent deploys is safe.

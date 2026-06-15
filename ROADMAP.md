@@ -3,14 +3,21 @@
 What's shipped in this redesign, and what to build next to turn the demo into a
 sellable product. Roughly ordered by value-to-effort.
 
-## ✅ Shipped in v2 (this redesign)
+## ✅ Shipped in v3 (this release)
 
+- **Full multi-user auth** — sign up, sign in, sign out with httpOnly JWT cookies
+  and bcrypt-hashed passwords. No external auth provider required.
+- **Per-user data isolation** — every query is scoped to `userId`; contacts,
+  companies, and deals are completely private between accounts.
+- **Branded login / signup pages** — two-panel layout with brand left rail and
+  form panel; "Start with sample data" checkbox on signup.
+- **Edge middleware** — protects all app routes; returns 401 on API routes.
 - **Rebrand to Relay** — name, logo, indigo-violet design system, dark mode.
 - **Pipeline / Kanban** — drag deals between stages, board ⇄ list views, full
   CRUD, automatic `closedAt` handling on win/loss.
 - **Redesigned dashboard** — gradient hero, KPI cards with trend chips,
   open-pipeline-by-stage strip, avatar-rich recent lists.
-- **Refreshed shell** — new sidebar with active states + user card, sticky top
+- **Refreshed shell** — new sidebar with real user name/email + logout, sticky top
   bar with breadcrumb, search field, and a live-demo badge.
 
 ## 🔜 High-impact, low-effort next steps
