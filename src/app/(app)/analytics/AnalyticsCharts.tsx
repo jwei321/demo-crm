@@ -27,11 +27,13 @@ const STATUS_COLORS: Record<string, string> = {
 const STAGE_COLORS = [
   "#94a3b8",
   "#0ea5e9",
-  "#6366f1",
+  "#6d5efc",
   "#f59e0b",
   "#10b981",
   "#ef4444",
 ];
+
+const BRAND = "#6d5efc";
 
 function formatUSDCompact(v: number) {
   if (v >= 1_000_000) return `$${(v / 1_000_000).toFixed(1)}M`;
@@ -163,9 +165,9 @@ export default function AnalyticsCharts({
               <Line
                 type="monotone"
                 dataKey="contacts"
-                stroke="#3b62ff"
+                stroke={BRAND}
                 strokeWidth={2.5}
-                dot={{ r: 4, fill: "#3b62ff" }}
+                dot={{ r: 4, fill: BRAND }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
@@ -197,7 +199,7 @@ export default function AnalyticsCharts({
                 contentStyle={tooltipStyle}
                 cursor={{ fill: isDark ? "#1e293b80" : "#f1f5f980" }}
               />
-              <Bar dataKey="revenue" fill="#3b62ff" radius={[0, 6, 6, 0]} />
+              <Bar dataKey="revenue" fill={BRAND} radius={[0, 6, 6, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

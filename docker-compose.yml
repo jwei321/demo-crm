@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - relay_dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
+      # For a real deployment, change this to a long random string.
+      AUTH_SECRET: local-demo-secret-please-change-me-0123456789
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
+      NODE_ENV: production
+      # Optional: drop in real keys to enable email + the AI deal assistant.
+      # RESEND_API_KEY: ""
+      # ANTHROPIC_API_KEY: ""
+    ports:
+      - "3000:3000"
+
+volumes:
+  relay_dbdata:
