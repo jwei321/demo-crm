@@ -18,51 +18,138 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  companies Company[]
-  contacts  Contact[]
-  deals     Deal[]
+  companies    Company[]
+  contacts     Contact[]
+  deals        Deal[]
+  activities   Activity[]
+  tasks        Task[]
+
+  // Team workspace membership
+  ownedWorkspace   Workspace?       @relation("WorkspaceOwner")
+  memberships      WorkspaceMember[]
+  invitesSent      WorkspaceInvite[] @relation("InviteSender")
+
+  // Password reset tokens
+  passwordResetTokens PasswordResetToken[]
 }
 
-model Company {
+// ─── Team Workspaces ────────────────────────────────────────────────────────
+
+model Workspace {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  ownerId   String   @unique
+  owner     User     @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members   WorkspaceMember[]
+  invites   WorkspaceInvite[]
+
+  @@index([slug])
+}
+
+model WorkspaceMember {
+  id          String          @id @default(cuid())
+  workspaceId String
+  userId      String
+  role        WorkspaceRole   @default(MEMBER)
+  joinedAt    DateTime        @default(now())
+  workspace   Workspace       @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([userId])
+}
+
+model WorkspaceInvite {
   id          String    @id @default(cuid())
-  name        String
-  industry    String
-  website     String?
-  employees   Int       @default(0)
-  annualRevenue Decimal @default(0) @db.Decimal(14, 2)
-  city        String?
-  country     String?
+  workspaceId String
+  email       String
+  role        WorkspaceRole @default(MEMBER)
+  token       String    @unique @default(cuid())
+  invitedById String
+  expiresAt   DateTime
+  acceptedAt  DateTime?
   createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  invitedBy   User      @relation("InviteSender", fields: [invitedById], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, email])
+  @@index([token])
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+
+// ─── Password Reset ──────────────────────────────────────────────────────────
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  token     String    @unique @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([token])
+  @@index([userId])
+}
+
+// ─── Company ─────────────────────────────────────────────────────────────────
+
+model Company {
+  id            String    @id @default(cuid())
+  name          String
+  industry      String
+  website       String?
+  employees     Int       @default(0)
+  annualRevenue Decimal   @default(0) @db.Decimal(14, 2)
+  city          String?
+  country       String?
+  notes         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   userId      String
   user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   contacts    Contact[]
   deals       Deal[]
+  activities  Activity[]
 
   @@index([userId])
   @@index([name])
   @@index([industry])
 }
 
+// ─── Contact ─────────────────────────────────────────────────────────────────
+
 model Contact {
-  id         String   @id @default(cuid())
+  id         String        @id @default(cuid())
   firstName  String
   lastName   String
   email      String
   phone      String?
   title      String?
   status     ContactStatus @default(LEAD)
+  notes      String?
   companyId  String?
-  company    Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  company    Company?      @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
 
   userId     String
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user       User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   deals      Deal[]
+  activities Activity[]
+  tasks      Task[]
 
   @@unique([userId, email])
   @@index([userId])
@@ -78,22 +165,28 @@ enum ContactStatus {
   CHURNED
 }
 
+// ─── Deal ────────────────────────────────────────────────────────────────────
+
 model Deal {
-  id          String   @id @default(cuid())
-  title       String
-  value       Decimal  @default(0) @db.Decimal(14, 2)
-  stage       DealStage @default(PROSPECTING)
+  id                String    @id @default(cuid())
+  title             String
+  value             Decimal   @default(0) @db.Decimal(14, 2)
+  stage             DealStage @default(PROSPECTING)
   expectedCloseDate DateTime?
-  closedAt    DateTime?
-  companyId   String?
-  contactId   String?
-  company     Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
-  contact     Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  closedAt          DateTime?
+  notes             String?
+  companyId         String?
+  contactId         String?
+  company           Company?  @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  contact           Contact?  @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
 
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  activities  Activity[]
+  tasks       Task[]
 
   @@index([userId])
   @@index([stage])
@@ -108,4 +201,66 @@ enum DealStage {
   NEGOTIATION
   CLOSED_WON
   CLOSED_LOST
+}
+
+// ─── Activity (calls, emails, meetings, notes) ────────────────────────────────
+
+model Activity {
+  id          String       @id @default(cuid())
+  type        ActivityType
+  content     String
+  occurredAt  DateTime     @default(now())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contactId   String?
+  contact     Contact?     @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  dealId      String?
+  deal        Deal?        @relation(fields: [dealId], references: [id], onDelete: SetNull)
+  companyId   String?
+  company     Company?     @relation(fields: [companyId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([contactId])
+  @@index([dealId])
+  @@index([companyId])
+  @@index([occurredAt])
+}
+
+enum ActivityType {
+  NOTE
+  CALL
+  EMAIL
+  MEETING
+}
+
+// ─── Task ────────────────────────────────────────────────────────────────────
+
+model Task {
+  id          String       @id @default(cuid())
+  title       String
+  completed   Boolean      @default(false)
+  dueDate     DateTime?
+  priority    TaskPriority @default(MEDIUM)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  userId      String
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contactId   String?
+  contact     Contact?     @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  dealId      String?
+  deal        Deal?        @relation(fields: [dealId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([dueDate])
+  @@index([completed])
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
 }

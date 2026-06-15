@@ -287,13 +287,15 @@ export default function DealsView({
                       draggable
                       onDragStart={() => setDragId(d.id)}
                       onDragEnd={() => setDragId(null)}
-                      onClick={() => openEdit(d)}
-                      className={`group cursor-pointer rounded-xl bg-white p-3 shadow-card ring-1 ring-slate-200/70 transition hover:ring-brand-300 dark:bg-slate-800 dark:ring-slate-700 ${
+                      className={`group rounded-xl bg-white p-3 shadow-card ring-1 ring-slate-200/70 transition hover:ring-brand-300 dark:bg-slate-800 dark:ring-slate-700 ${
                         dragId === d.id ? "opacity-50" : ""
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <p className="text-sm font-semibold leading-snug text-slate-900 dark:text-slate-100">
+                        <p
+                          className="cursor-pointer text-sm font-semibold leading-snug text-slate-900 hover:text-brand-600 dark:text-slate-100 dark:hover:text-brand-400"
+                          onClick={() => openEdit(d)}
+                        >
                           {d.title}
                         </p>
                         <button
@@ -341,6 +343,15 @@ export default function DealsView({
                           Closes {formatDate(d.expectedCloseDate)}
                         </p>
                       )}
+                      <div className="mt-2 flex items-center gap-2 opacity-0 transition group-hover:opacity-100">
+                        <a
+                          href={`/deals/${d.id}`}
+                          className="text-[11px] font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          View details →
+                        </a>
+                      </div>
                     </div>
                   ))}
 
@@ -401,6 +412,12 @@ export default function DealsView({
                           : "—"}
                     </td>
                     <td className="table-td whitespace-nowrap text-right">
+                      <a
+                        href={`/deals/${d.id}`}
+                        className="mr-3 text-xs font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                      >
+                        Details
+                      </a>
                       <button
                         className="mr-3 text-xs font-medium text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100"
                         onClick={() => openEdit(d)}

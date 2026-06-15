@@ -59,6 +59,10 @@ export default function ContactsView({
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [csvOpen, setCsvOpen] = useState(false);
+  const [csvText, setCsvText] = useState("");
+  const [csvSubmitting, setCsvSubmitting] = useState(false);
+  const [csvResult, setCsvResult] = useState<{ imported: number; updated: number } | null>(null);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
@@ -139,6 +143,31 @@ export default function ContactsView({
     }
   }
 
+  async function importCsv(e: React.FormEvent) {
+    e.preventDefault();
+    setCsvSubmitting(true);
+    setCsvResult(null);
+    try {
+      const res = await fetch("/api/csv?type=contacts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ csv: csvText }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Import failed");
+      setCsvResult({ imported: data.imported ?? 0, updated: data.updated ?? 0 });
+      router.refresh();
+    } catch (err: any) {
+      setError(err.message);
+    } finally {
+      setCsvSubmitting(false);
+    }
+  }
+
+  function downloadCsv() {
+    window.open("/api/csv?type=contacts", "_blank");
+  }
+
   async function remove(id: string) {
     if (!confirm("Delete this contact?")) return;
     const res = await fetch(`/api/contacts/${id}`, { method: "DELETE" });
@@ -156,18 +185,26 @@ export default function ContactsView({
         title="Contacts"
         subtitle={`${contacts.length} contacts in your database`}
         actions={
-          <button className="btn-primary" onClick={openCreate}>
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M12 5v14M5 12h14" strokeLinecap="round" />
-            </svg>
-            New Contact
-          </button>
+          <div className="flex items-center gap-2">
+            <button className="btn-secondary" onClick={downloadCsv}>
+              Export CSV
+            </button>
+            <button className="btn-secondary" onClick={() => { setCsvOpen(true); setCsvResult(null); setCsvText(""); }}>
+              Import CSV
+            </button>
+            <button className="btn-primary" onClick={openCreate}>
+              <svg
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+              </svg>
+              New Contact
+            </button>
+          </div>
         }
       />
 
@@ -261,6 +298,37 @@ export default function ContactsView({
           </table>
         </div>
       </div>
+
+      <Modal open={csvOpen} onClose={() => setCsvOpen(false)} title="Import Contacts from CSV">
+        <form onSubmit={importCsv} className="space-y-4">
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            Paste CSV with headers: <code className="rounded bg-slate-100 px-1 text-xs dark:bg-slate-800">firstName,lastName,email,phone,title,status,company</code>
+          </p>
+          <textarea
+            className="input min-h-[180px] font-mono text-xs"
+            placeholder={"firstName,lastName,email,phone,title,status,company\nJane,Doe,jane@example.com,555-1234,CEO,LEAD,Acme Corp"}
+            value={csvText}
+            onChange={(e) => setCsvText(e.target.value)}
+            required
+          />
+          {csvResult && (
+            <div className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-700 ring-1 ring-emerald-200 dark:bg-emerald-500/10 dark:text-emerald-300 dark:ring-emerald-500/30">
+              Done! {csvResult.imported} imported, {csvResult.updated} updated.
+            </div>
+          )}
+          {error && (
+            <div className="rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-600 ring-1 ring-rose-200 dark:bg-rose-500/10 dark:text-rose-300 dark:ring-rose-500/30">
+              {error}
+            </div>
+          )}
+          <div className="flex justify-end gap-2 pt-2">
+            <button type="button" className="btn-secondary" onClick={() => setCsvOpen(false)}>Close</button>
+            <button type="submit" className="btn-primary" disabled={csvSubmitting}>
+              {csvSubmitting ? "Importing…" : "Import"}
+            </button>
+          </div>
+        </form>
+      </Modal>
 
       <Modal
         open={open}
