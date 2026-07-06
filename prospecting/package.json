@@ -1,0 +1,23 @@
+{
+  "name": "benefit-scope-prospecting",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Automated B2B email prospecting system for Benefit Scope App (Stage 1: discovery + database)",
+  "type": "module",
+  "scripts": {
+    "discover": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.5.0",
+    "cheerio": "^1.0.0",
+    "csv-parse": "^5.6.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^20.17.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
+  }
+}
