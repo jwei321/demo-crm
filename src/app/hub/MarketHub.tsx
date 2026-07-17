@@ -1866,11 +1866,11 @@ export default function MarketHub({ data }: { data: MarketData }) {
             Questions about <em style={{ color: GOLD, fontStyle: "italic" }}>your</em> situation?
           </h2>
           <p style={{ margin: "14px auto 22px", color: SECON, fontSize: 14.5, lineHeight: 1.6, maxWidth: 520 }}>
-            The tools above are a starting point. A licensed adviser can map them to your goals, existing holdings, CPF and risk
-            tolerance.
+            The tools above are a starting point. Message me on Telegram and I can map them to your goals, existing holdings, CPF
+            and risk tolerance.
           </p>
           <a
-            href={AIA_FUND_URL}
+            href="https://t.me/D_TJW"
             target="_blank"
             rel="noopener"
             className="mh-aia"
@@ -1887,7 +1887,10 @@ export default function MarketHub({ data }: { data: MarketData }) {
               boxShadow: "0 0 30px rgba(245,197,88,.35)",
             }}
           >
-            Book a review
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#0A0E1A" aria-hidden="true">
+              <path d="M21.9 4.3 18.6 20c-.24 1.09-.9 1.36-1.82.85l-5.02-3.7-2.42 2.33c-.27.27-.5.5-1 .5l.35-5.07L18.9 5.6c.4-.36-.09-.56-.62-.2L6.9 12.6l-4.97-1.56c-1.08-.34-1.1-1.08.23-1.6L20.5 2.7c.9-.33 1.68.2 1.4 1.6Z"/>
+            </svg>
+            Book a review on Telegram
           </a>
           <div style={{ fontSize: 10.5, color: MUTED, marginTop: 26, lineHeight: 1.6, maxWidth: 620, marginLeft: "auto", marginRight: "auto" }}>
             This site is for educational purposes only and does not constitute financial advice, a recommendation, or an offer to
