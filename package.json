@@ -11,7 +11,9 @@
     "db:migrate": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
     "db:reset": "prisma migrate reset --force",
-    "lint": "next lint"
+    "lint": "next lint",
+    "data:update": "node scripts/update-market-data.mjs",
+    "data:review": "node scripts/monthly-review.mjs"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
