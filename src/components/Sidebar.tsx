@@ -9,6 +9,7 @@ const links = [
   { href: "/contacts", label: "Contacts", icon: "M16 14a4 4 0 1 0-8 0M4 20a8 8 0 1 1 16 0" },
   { href: "/companies", label: "Companies", icon: "M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M9 13h.01M9 17h.01M15 9h.01M15 13h.01M15 17h.01" },
   { href: "/analytics", label: "Analytics", icon: "M3 3v18h18M7 14l4-4 4 4 5-5" },
+  { href: "/hub", label: "Market Hub", icon: "M3 3v18h18M7 13l3-3 3 3 5-6" },
 ];
 
 export default function Sidebar() {

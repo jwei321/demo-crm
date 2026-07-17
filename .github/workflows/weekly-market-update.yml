@@ -1,0 +1,48 @@
+name: Weekly market data refresh
+
+# Refreshes data/market.json every week. Pushing the commit triggers Railway to
+# rebuild and redeploy, so the live Hub shows the new week's data.
+on:
+  schedule:
+    # 01:00 UTC every Monday == 09:00 SGT Monday
+    - cron: "0 1 * * 1"
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: weekly-market-update
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Refresh market data
+        env:
+          # Optional: add a free FRED key in repo Settings → Secrets → Actions
+          # to pull live macro readings (CPI, VIX, unemployment, Fed funds).
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+        run: node scripts/update-market-data.mjs
+
+      - name: Commit & push if changed
+        run: |
+          if [[ -n "$(git status --porcelain data/market.json)" ]]; then
+            git config user.name "market-hub-bot"
+            git config user.email "actions@github.com"
+            git add data/market.json
+            git commit -m "chore(hub): weekly market data refresh ($(date -u +%Y-%m-%d))"
+            git push
+            echo "Pushed refreshed market data."
+          else
+            echo "No changes to market data."
+          fi

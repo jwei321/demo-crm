@@ -10,6 +10,31 @@ A fully functional demo CRM built with **Next.js 14**, **Prisma**, **PostgreSQL*
 - **Analytics** — pipeline-by-stage bar chart, contact status pie, monthly contact growth, revenue-by-industry chart, top accounts table
 - **PostgreSQL** persistence via Prisma ORM
 - **Mock data seeder** — 12 companies, 60 contacts, 80 deals
+- **[Market & Planning Hub](#market--planning-hub) at `/hub`** — a live market-intelligence dashboard that refreshes weekly
+
+## Market & Planning Hub
+
+A self-contained, dark-themed market & financial-planning dashboard lives at **`/hub`**
+(linked from the sidebar). It covers markets, S&P sectors, macro readings, a company
+analyzer, the AIA ILP fund line-up, a horizon-based outlook, and interactive planning
+tools. See [`src/app/hub/README.md`](src/app/hub/README.md) for the full breakdown.
+
+**It updates by itself:**
+
+| Cadence | What happens | Where |
+| ------- | ------------ | ----- |
+| **Weekly** (Mon 09:00 SGT) | `scripts/update-market-data.mjs` pulls live indices/FX/commodities/sector returns (Stooq → Yahoo fallback) and, if `FRED_API_KEY` is set, live macro; writes `data/market.json`; the commit triggers a Railway redeploy. | `.github/workflows/weekly-market-update.yml` |
+| **Monthly** (1st) | `scripts/monthly-review.mjs` writes a dated review — a data-driven market snapshot, a data-health check, and a rotating slice of the enhancement backlog — to `docs/MONTHLY_REVIEW.md` and opens a GitHub issue with it. | `.github/workflows/monthly-review.yml` |
+
+Run either locally with `npm run data:update` or `npm run data:review`.
+
+**Optional live macro:** add a free [FRED API key](https://fredaccount.stlouisfed.org/apikeys)
+as a repo secret named `FRED_API_KEY` (Settings → Secrets and variables → Actions) to make
+the macro cards pull CPI, core CPI, unemployment, VIX and Fed funds from source. Without it,
+those cards use a deterministic weekly drift.
+
+> All fund figures and some macro readings are **illustrative** and clearly labelled as such;
+> the page carries "educational, not advice" disclaimers throughout.
 
 ## Tech Stack
 
