@@ -1,8 +1,8 @@
 {
   "meta": {
-    "updatedISO": "2026-08-17T02:18:57.107Z",
-    "stamp": "UPDATED 17 AUG 2026 · 09:30 SGT",
-    "weekOf": "2026-08-17",
+    "updatedISO": "2026-08-24T02:21:29.639Z",
+    "stamp": "UPDATED 24 AUG 2026 · 09:30 SGT",
+    "weekOf": "2026-08-24",
     "generatedBy": "live",
     "sources": [
       "Yahoo Finance (markets)",
@@ -14,224 +14,224 @@
       "id": "spx",
       "name": "S&P 500",
       "full": "S&P 500 Index",
-      "val": "7,785.76",
+      "val": "7,674.37",
       "color": "#4D9FFF",
       "chg": {
-        "1W": 0.4,
+        "1W": -1.4,
         "1M": 3.6,
-        "3M": 5,
-        "YTD": 13.7,
-        "1Y": 21.9
+        "3M": 3.1,
+        "YTD": 12.1,
+        "1Y": 20
       },
       "data": [
-        5634.60986328125,
-        5851.2001953125,
-        5867.080078125,
-        6013.1298828125,
-        5287.759765625,
-        5967.83984375,
-        6411.3701171875,
-        6629.06982421875,
-        6816.509765625,
-        6836.169921875,
-        7022.9501953125,
-        7431.4599609375
+        5503.41015625,
+        5728.7998046875,
+        5868.5498046875,
+        5842.6298828125,
+        5686.669921875,
+        6227.419921875,
+        6460.259765625,
+        6890.89013671875,
+        6929.93994140625,
+        6908.85986328125,
+        7173.91015625,
+        7357.490234375
       ]
     },
     {
       "id": "ndx",
       "name": "NASDAQ",
       "full": "NASDAQ 100",
-      "val": "30,046.1",
+      "val": "29,308.9",
       "color": "#7A5CFF",
       "chg": {
-        "1W": 1.1,
-        "1M": 2.7,
-        "3M": 2.5,
-        "YTD": 19,
-        "1Y": 27.3
+        "1W": -2.5,
+        "1M": 3,
+        "3M": -0.2,
+        "YTD": 16.1,
+        "1Y": 26.1
       },
       "data": [
-        19720.869140625,
-        20390.4609375,
-        21110.509765625,
-        21614.080078125,
-        18276.41015625,
-        21626.390625,
-        23384.76953125,
-        24657.240234375,
-        25067.26953125,
-        24732.73046875,
-        26204.580078125,
-        29635.94921875
+        18930.330078125,
+        20033.140625,
+        20975.619140625,
+        20628.4609375,
+        20102.609375,
+        22641.890625,
+        23415.419921875,
+        26012.150390625,
+        25644.390625,
+        25034.369140625,
+        27305.6796875,
+        29440.3203125
       ]
     },
     {
       "id": "sti",
       "name": "STI",
       "full": "Straits Times Index",
-      "val": "5,697.56",
+      "val": "5,694.78",
       "color": "#2EE6C8",
       "chg": {
-        "1W": 0,
-        "1M": 4.2,
-        "3M": 15.2,
+        "1W": -1.3,
+        "1M": 2,
+        "3M": 12.4,
         "YTD": 22.6,
         "1Y": 34.6
       },
       "data": [
-        3391.030029296875,
-        3604.949951171875,
-        3752.330078125,
-        3927.75,
-        3831.919921875,
-        3904.300048828125,
-        4219.5400390625,
-        4356.2001953125,
-        4589.169921875,
-        5016.759765625,
-        5021.2001953125,
-        5116.85986328125
+        3496.530029296875,
+        3602.989990234375,
+        3821.840087890625,
+        3917.06005859375,
+        3865.3701171875,
+        4013.6201171875,
+        4276.06982421875,
+        4440.2099609375,
+        4636.14990234375,
+        4964.3798828125,
+        4892.72998046875,
+        5191.72998046875
       ]
     },
     {
       "id": "nky",
       "name": "NIKKEI",
       "full": "Nikkei 225",
-      "val": "68,791.8",
+      "val": "65,877.8",
       "color": "#FF4D8F",
       "chg": {
-        "1W": 4.9,
-        "1M": 0.1,
-        "3M": 13.1,
-        "YTD": 36.7,
-        "1Y": 68.6
+        "1W": -4.8,
+        "1M": -0.8,
+        "3M": 1.1,
+        "YTD": 30.9,
+        "1Y": 57.5
       },
       "data": [
-        38288.62109375,
-        37913.921875,
-        39161.33984375,
-        38142.37109375,
-        35039.1484375,
-        38790.55859375,
-        42610.171875,
-        49316.05859375,
-        49001.5,
-        57467.828125,
-        58824.890625,
-        71250.0625
+        38686.30859375,
+        38053.671875,
+        39894.5390625,
+        37418.23828125,
+        36830.69140625,
+        39986.328125,
+        42828.7890625,
+        50219.1796875,
+        50407.7890625,
+        58850.26953125,
+        60537.359375,
+        69360.8828125
       ]
     },
     {
       "id": "us10",
       "name": "US 10Y",
       "full": "US 10-Year Yield",
-      "val": "4.70%",
+      "val": "4.74%",
       "color": "#5E7CE2",
       "chg": {
-        "1W": 0.8,
-        "1M": 2.8,
-        "3M": 5.3,
-        "YTD": 12.8,
-        "1Y": 10.8
+        "1W": 0.9,
+        "1M": 0.7,
+        "3M": 3.3,
+        "YTD": 13.8,
+        "1Y": 10.3
       },
       "data": [
-        3.8410000801086426,
-        4.23199987411499,
-        4.591000080108643,
-        4.249000072479248,
-        4.265999794006348,
+        3.7309999465942383,
+        4.361000061035156,
+        4.574999809265137,
+        4.264999866485596,
+        4.322000026702881,
         4.293000221252441,
-        4.260000228881836,
-        3.9630000591278076,
-        4.116000175476074,
-        4.074999809265137,
-        4.25,
-        4.4629998207092285
+        4.2270002365112305,
+        3.9830000400543213,
+        4.136000156402588,
+        4.017000198364258,
+        4.335999965667725,
+        4.392000198364258
       ]
     },
     {
       "id": "sgd",
       "name": "USD/SGD",
       "full": "USD / Sing Dollar",
-      "val": "1.2776",
+      "val": "1.2690",
       "color": "#C36BFF",
       "chg": {
-        "1W": -0.1,
-        "1M": -1,
-        "3M": -0.3,
-        "YTD": -0.5,
-        "1Y": -0.7
+        "1W": -0.8,
+        "1M": -1.8,
+        "3M": -0.6,
+        "YTD": -1.2,
+        "1Y": -1.1
       },
       "data": [
-        1.3157600164413452,
-        1.313349962234497,
-        1.3491699695587158,
-        1.3395400047302246,
-        1.3102999925613403,
-        1.2852599620819092,
-        1.2844200134277344,
-        1.2928099632263184,
-        1.2890299558639526,
-        1.2626800537109375,
-        1.273550033569336,
-        1.2879600524902344
+        1.3011399507522583,
+        1.323009967803955,
+        1.3571200370788574,
+        1.3356200456619263,
+        1.3151999711990356,
+        1.276729941368103,
+        1.2859899997711182,
+        1.2985999584197998,
+        1.2844300270080566,
+        1.2662999629974365,
+        1.2770999670028687,
+        1.297379970550537
       ]
     },
     {
       "id": "gold",
       "name": "GOLD",
       "full": "Gold USD/oz",
-      "val": "4,452.00",
+      "val": "4,706.20",
       "color": "#F5C558",
       "chg": {
-        "1W": 2.1,
-        "1M": 10.9,
-        "3M": -2.3,
-        "YTD": 2.9,
-        "1Y": 33.5
+        "1W": 6.5,
+        "1M": 15.7,
+        "3M": 4.1,
+        "YTD": 8.8,
+        "1Y": 41
       },
       "data": [
-        2489.89990234375,
-        2788.5,
-        2606.10009765625,
-        2836.800048828125,
-        3318.800048828125,
-        3273.699951171875,
-        3373.800048828125,
-        4044.39990234375,
-        4361.39990234375,
-        5059.2998046875,
-        4698.39990234375,
-        4224.10009765625
+        2512.300048828125,
+        2667.60009765625,
+        2656.699951171875,
+        2904.699951171875,
+        3411.39990234375,
+        3332.5,
+        3549.39990234375,
+        3983.699951171875,
+        4325.10009765625,
+        5230.5,
+        4591.5,
+        4078.699951171875
       ]
     },
     {
       "id": "brent",
       "name": "BRENT",
       "full": "Brent Crude USD/bbl",
-      "val": "89.18",
+      "val": "92.58",
       "color": "#FF5A5A",
       "chg": {
-        "1W": 1.7,
-        "1M": 1.2,
-        "3M": -18.4,
-        "YTD": 46.6,
-        "1Y": 33.4
+        "1W": 1.9,
+        "1M": -4.3,
+        "3M": -10.6,
+        "YTD": 52.1,
+        "1Y": 36.8
       },
       "data": [
-        73.75,
-        72.55000305175781,
-        74.38999938964844,
-        73.18000030517578,
-        64.25,
-        67.7699966430664,
-        68.80000305175781,
-        62.59000015258789,
-        60.470001220703125,
-        71.76000213623047,
-        98.4800033569336,
-        79.8499984741211
+        69.19000244140625,
+        74.91999816894531,
+        77.05000305175781,
+        70.36000061035156,
+        62.150001525878906,
+        68.29000091552734,
+        69.13999938964844,
+        64.91999816894531,
+        61.939998626708984,
+        72.4800033569336,
+        111.26000213623047,
+        71.98999786376953
       ]
     }
   ],
@@ -244,14 +244,14 @@
       "x": 50,
       "y": 50,
       "chg": {
-        "1W": 1.1,
-        "1M": 7,
-        "3M": 5.9,
-        "YTD": 32,
-        "1Y": 41.6,
-        "5Y": 125.4,
-        "10Y": 416.9,
-        "MAX": 887.9
+        "1W": -3.5,
+        "1M": 2.7,
+        "3M": 2.6,
+        "YTD": 27.3,
+        "1Y": 41.1,
+        "5Y": 125.9,
+        "10Y": 409.9,
+        "MAX": 882.6
       }
     },
     {
@@ -262,14 +262,14 @@
       "x": 23,
       "y": 29,
       "chg": {
-        "1W": 1,
-        "1M": 2.5,
-        "3M": 13.4,
-        "YTD": 6.2,
-        "1Y": 10.2,
-        "5Y": 64.3,
-        "10Y": 140.4,
-        "MAX": 375
+        "1W": -1.2,
+        "1M": 3,
+        "3M": 11.1,
+        "YTD": 4.9,
+        "1Y": 8.7,
+        "5Y": 63.6,
+        "10Y": 143.2,
+        "MAX": 379.3
       }
     },
     {
@@ -280,14 +280,14 @@
       "x": 77,
       "y": 25,
       "chg": {
-        "1W": 1,
-        "1M": 3.4,
-        "3M": 14.1,
-        "YTD": 8.1,
-        "1Y": 25.6,
-        "5Y": 36.9,
-        "10Y": 105.3,
-        "MAX": 425.6
+        "1W": 4.3,
+        "1M": 8.2,
+        "3M": 17.9,
+        "YTD": 12.8,
+        "1Y": 27,
+        "5Y": 37.4,
+        "10Y": 106.8,
+        "MAX": 431.9
       }
     },
     {
@@ -298,14 +298,14 @@
       "x": 13,
       "y": 57,
       "chg": {
-        "1W": -1.4,
-        "1M": 0.7,
-        "3M": -0.4,
-        "YTD": -1,
-        "1Y": 2.8,
-        "5Y": 70,
-        "10Y": 209.1,
-        "MAX": 529.6
+        "1W": -0.2,
+        "1M": 8.5,
+        "3M": -0.6,
+        "YTD": -1.2,
+        "1Y": 3.7,
+        "5Y": 68.7,
+        "10Y": 213.1,
+        "MAX": 525
       }
     },
     {
@@ -316,14 +316,14 @@
       "x": 87,
       "y": 52,
       "chg": {
-        "1W": 1.5,
-        "1M": 0.3,
-        "3M": -3.6,
-        "YTD": -4.1,
-        "1Y": 1.7,
-        "5Y": 85.1,
-        "10Y": 159,
-        "MAX": 311.6
+        "1W": -1.4,
+        "1M": 5.7,
+        "3M": -4,
+        "YTD": -5.4,
+        "1Y": 1.4,
+        "5Y": 85,
+        "10Y": 159.6,
+        "MAX": 308.2
       }
     },
     {
@@ -334,14 +334,14 @@
       "x": 28,
       "y": 80,
       "chg": {
-        "1W": 0.7,
-        "1M": 3.5,
-        "3M": 6.9,
-        "YTD": 20.2,
-        "1Y": 22.3,
-        "5Y": 54.2,
-        "10Y": 139.2,
-        "MAX": 348.6
+        "1W": -3.4,
+        "1M": -0.9,
+        "3M": 5.7,
+        "YTD": 16.2,
+        "1Y": 19.2,
+        "5Y": 54.3,
+        "10Y": 136.8,
+        "MAX": 348.5
       }
     },
     {
@@ -352,14 +352,14 @@
       "x": 68,
       "y": 82,
       "chg": {
-        "1W": 1.1,
-        "1M": 0.3,
-        "3M": 1.3,
-        "YTD": 10.8,
-        "1Y": 4.2,
-        "5Y": 28,
-        "10Y": 85.1,
-        "MAX": 318
+        "1W": -0.1,
+        "1M": 3.3,
+        "3M": 1.6,
+        "YTD": 10.7,
+        "1Y": 3.3,
+        "5Y": 27.9,
+        "10Y": 84.9,
+        "MAX": 322.2
       }
     },
     {
@@ -370,14 +370,14 @@
       "x": 46,
       "y": 11,
       "chg": {
-        "1W": 7.7,
-        "1M": 8.6,
-        "3M": 6.6,
-        "YTD": 38.5,
-        "1Y": 44.6,
-        "5Y": 42.5,
-        "10Y": 18.7,
-        "MAX": 178.2
+        "1W": 2.8,
+        "1M": 7.2,
+        "3M": 7.6,
+        "YTD": 42.3,
+        "1Y": 48.4,
+        "5Y": 43.2,
+        "10Y": 18.8,
+        "MAX": 180.4
       }
     },
     {
@@ -388,14 +388,14 @@
       "x": 91,
       "y": 78,
       "chg": {
-        "1W": 1.6,
-        "1M": -2.6,
-        "3M": -1.3,
-        "YTD": 3.8,
-        "1Y": 2.5,
-        "5Y": 24.2,
-        "10Y": 71.2,
-        "MAX": 244.1
+        "1W": -3.5,
+        "1M": -7.4,
+        "3M": -5,
+        "YTD": 0.2,
+        "1Y": -0.7,
+        "5Y": 23.9,
+        "10Y": 71.3,
+        "MAX": 247.1
       }
     },
     {
@@ -406,14 +406,14 @@
       "x": 8,
       "y": 81,
       "chg": {
-        "1W": 0.6,
-        "1M": -0.4,
-        "3M": 3.1,
-        "YTD": 12.2,
-        "1Y": 9.5,
-        "5Y": 8.6,
-        "10Y": 44.8,
-        "MAX": 211.2
+        "1W": -0.4,
+        "1M": 0.3,
+        "3M": 1.3,
+        "YTD": 11.7,
+        "1Y": 7.8,
+        "5Y": 8.4,
+        "10Y": 44.4,
+        "MAX": 209
       }
     },
     {
@@ -424,14 +424,14 @@
       "x": 49,
       "y": 92,
       "chg": {
-        "1W": -0.6,
-        "1M": 3.8,
-        "3M": 0.8,
-        "YTD": 15.9,
-        "1Y": 19.2,
-        "5Y": 34.3,
+        "1W": 1.9,
+        "1M": 6.5,
+        "3M": 7,
+        "YTD": 18.1,
+        "1Y": 18.8,
+        "5Y": 34.6,
         "10Y": 79.3,
-        "MAX": 222.3
+        "MAX": 223.6
       }
     }
   ],
@@ -439,21 +439,21 @@
     {
       "name": "CPI (YOY)",
       "val": "2.4%",
-      "chg": -0.05,
+      "chg": 0.01,
       "chgTxt": "▼ 0.2pp vs prior",
       "good": true,
       "flag": "COOLING",
       "spark": [
-        60,
+        61,
         55,
-        52,
-        49,
-        48,
+        53,
+        50,
         47,
+        46,
         45,
         39,
-        36,
-        39,
+        37,
+        40,
         35,
         35
       ],
@@ -462,7 +462,7 @@
     {
       "name": "CORE CPI (YOY)",
       "val": "2.8%",
-      "chg": -0.19,
+      "chg": -0.2,
       "chgTxt": "▼ 0.1pp vs prior",
       "good": true,
       "flag": "STICKY",
@@ -470,153 +470,153 @@
         51,
         50,
         46,
-        48,
+        47,
         46,
-        50,
-        48,
         49,
+        47,
+        48,
         46,
-        46,
+        45,
         43,
-        42
+        41
       ],
       "note": "Strips out food and energy. Falling more slowly — this is what central banks watch."
     },
     {
       "name": "VIX",
       "val": "14.2",
-      "chg": -1.02,
+      "chg": -1.07,
       "chgTxt": "▼ 1.1 this week",
       "good": true,
       "flag": "CALM",
       "spark": [
         41,
-        54,
+        53,
         49,
-        60,
-        39,
+        59,
         38,
+        39,
         37,
-        48,
-        33,
-        37,
+        49,
+        34,
+        36,
         32,
-        29
+        28
       ],
       "note": "The market's \"fear gauge\". Below 15 signals unusually calm, complacent markets."
     },
     {
       "name": "UNEMPLOYMENT",
       "val": "4.1%",
-      "chg": 0.19,
+      "chg": 0.1,
       "chgTxt": "▲ 0.1pp vs prior",
       "good": false,
       "flag": "WATCH",
       "spark": [
         29,
-        30,
+        31,
         28,
+        32,
         33,
-        33,
-        33,
+        34,
         35,
         39,
-        36,
-        34,
-        40,
-        34
+        37,
+        33,
+        39,
+        35
       ],
       "note": "Ticking up slowly. A soft labour market supports cuts, but a spike would signal recession risk."
     },
     {
       "name": "PMI (MFG)",
       "val": "50.9",
-      "chg": 0.75,
+      "chg": 0.85,
       "chgTxt": "▲ 0.6 vs prior",
       "good": true,
       "flag": "EXPANSION",
       "spark": [
         48,
-        42,
-        45,
-        45,
+        43,
+        46,
+        44,
+        46,
+        49,
         47,
+        49,
         48,
         46,
-        48,
-        49,
-        47,
-        49,
-        52
+        50,
+        53
       ],
       "note": "Above 50 = factories expanding. Just crossed back into growth territory."
     },
     {
       "name": "FED FUNDS",
       "val": "3.75–4.00%",
-      "chg": -0.26,
+      "chg": -0.16,
       "chgTxt": "▼ 25bp last meeting",
       "good": true,
       "flag": "EASING",
       "spark": [
-        70,
-        73,
-        68,
-        70,
-        64,
-        66,
-        63,
+        69,
+        74,
+        69,
+        69,
         65,
-        60,
+        65,
+        62,
+        64,
         61,
-        55,
-        57
+        60,
+        56,
+        58
       ],
       "note": "The anchor for global borrowing costs. Two more cuts priced in for 2026."
     },
     {
       "name": "US GDP (QOQ)",
       "val": "2.3%",
-      "chg": 0.47,
+      "chg": 0.39,
       "chgTxt": "▲ 0.2pp vs prior",
       "good": true,
       "flag": "SOLID",
       "spark": [
+        45,
         44,
-        44,
-        41,
+        40,
         41,
         44,
         46,
-        50,
+        51,
         42,
-        46,
-        46,
-        46,
-        50
+        47,
+        47,
+        47,
+        51
       ],
       "note": "Growth is holding up despite higher rates — the \"soft landing\" scenario intact so far."
     },
     {
       "name": "SG CPI (YOY)",
       "val": "1.9%",
-      "chg": -0.21,
+      "chg": -0.19,
       "chgTxt": "▼ 0.3pp vs prior",
       "good": true,
       "flag": "COOLING",
       "spark": [
         54,
-        51,
+        52,
         54,
         51,
-        51,
-        42,
+        52,
+        41,
         46,
         43,
+        41,
         42,
-        43,
-        38,
-        35
+        37,
+        34
       ],
       "note": "Singapore inflation back below 2% — deposit rates now roughly keep pace with prices."
     }
@@ -627,9 +627,9 @@
       "short": "Regional Equity",
       "risk": "HIGHER RISK",
       "lvl": 2,
-      "nav": "S$5.95",
+      "nav": "S$5.99",
       "size": "S$1.9B",
-      "ytd": 11.2,
+      "ytd": 11.9,
       "about": "Asia ex-Japan equities — the region's biggest banks, chipmakers and internet platforms in one fund.",
       "commentary": "The manager stays overweight Asian tech hardware and Singapore banks, arguing the AI supply chain runs through Taiwan and Korea while SG banks pay you to wait. China exposure was trimmed last quarter on property-sector caution.",
       "alloc": [
@@ -695,11 +695,11 @@
       "returns": [
         [
           "1Y",
-          10.1
+          9.8
         ],
         [
           "YTD",
-          9.1
+          9.6
         ],
         [
           "3Y (p.a.)",
@@ -707,15 +707,15 @@
         ],
         [
           "5Y (p.a.)",
-          7.3
+          7.5
         ],
         [
           "10Y (p.a.)",
-          6.6
+          6.5
         ],
         [
           "MAX (p.a.)",
-          5.9
+          5.6
         ]
       ]
     },
@@ -724,9 +724,9 @@
       "short": "Growth",
       "risk": "HIGHER RISK",
       "lvl": 2,
-      "nav": "S$3.10",
+      "nav": "S$3.11",
       "size": "S$1.1B",
-      "ytd": 6.5,
+      "ytd": 6.7,
       "about": "Singapore-centred equities with some regional exposure — heavy on the local banks and blue chips.",
       "commentary": "Positioning leans hard into the three local banks, which benefit from still-high net interest margins even as rates ease. The manager flags REITs as the recovery trade if MAS eases alongside the Fed.",
       "alloc": [
@@ -793,27 +793,27 @@
       "returns": [
         [
           "1Y",
-          7.4
+          7.3
         ],
         [
           "YTD",
-          7.7
+          7.8
         ],
         [
           "3Y (p.a.)",
-          3
+          3.1
         ],
         [
           "5Y (p.a.)",
-          5.9
+          6.3
         ],
         [
           "10Y (p.a.)",
-          4.9
+          5.2
         ],
         [
           "MAX (p.a.)",
-          5.3
+          5.5
         ]
       ]
     },
@@ -822,9 +822,9 @@
       "short": "Acorns of Asia",
       "risk": "MEDIUM RISK",
       "lvl": 1,
-      "nav": "S$2.96",
+      "nav": "S$2.97",
       "size": "S$2.4B",
-      "ytd": 5.5,
+      "ytd": 5.9,
       "about": "A balanced fund — Asian equities for growth, Singapore bonds for stability, in roughly a 60/40 split.",
       "commentary": "With SG yields drifting lower, the bond sleeve has been extending duration to lock in coupons. On the equity side the fund added Indian financials, funded by trimming Hong Kong.",
       "alloc": [
@@ -895,15 +895,15 @@
       "returns": [
         [
           "1Y",
-          6.4
+          5.9
         ],
         [
           "YTD",
-          6.7
+          6.9
         ],
         [
           "3Y (p.a.)",
-          3.6
+          3.9
         ],
         [
           "5Y (p.a.)",
@@ -911,11 +911,11 @@
         ],
         [
           "10Y (p.a.)",
-          3.7
+          3.9
         ],
         [
           "MAX (p.a.)",
-          4.5
+          4.9
         ]
       ]
     },
@@ -924,9 +924,9 @@
       "short": "Global Tech",
       "risk": "HIGHER RISK",
       "lvl": 2,
-      "nav": "S$4.77",
+      "nav": "S$4.76",
       "size": "S$800M",
-      "ytd": 15.9,
+      "ytd": 15.7,
       "about": "Global technology equities — the AI, cloud and semiconductor names driving most of this cycle's returns.",
       "commentary": "The manager's view: AI capex is broadening from chips to software and power infrastructure, so the fund is rotating some NVIDIA gains into data-centre and enterprise-software names. Valuation is the stated top risk.",
       "alloc": [
@@ -988,27 +988,27 @@
       "returns": [
         [
           "1Y",
-          19
+          19.2
         ],
         [
           "YTD",
-          15.2
+          15.3
         ],
         [
           "3Y (p.a.)",
-          12.5
+          12.4
         ],
         [
           "5Y (p.a.)",
-          13.3
+          13.5
         ],
         [
           "10Y (p.a.)",
-          14.5
+          14.1
         ],
         [
           "MAX (p.a.)",
-          10.9
+          10.5
         ]
       ]
     },
@@ -1019,7 +1019,7 @@
       "lvl": 2,
       "nav": "S$2.40",
       "size": "S$650M",
-      "ytd": 5.1,
+      "ytd": 4.9,
       "about": "Equities across China, Hong Kong and Taiwan — internet platforms, chipmakers and consumer names.",
       "commentary": "The manager sees China as cheap but needing a catalyst — stimulus follow-through or an earnings turn. Taiwan tech remains the fund's engine while mainland consumer exposure is kept selective.",
       "alloc": [
@@ -1077,27 +1077,27 @@
       "returns": [
         [
           "1Y",
-          5.5
+          5
         ],
         [
           "YTD",
-          4.7
+          5.1
         ],
         [
           "3Y (p.a.)",
-          -2.3
+          -2.4
         ],
         [
           "5Y (p.a.)",
-          2.8
+          3.3
         ],
         [
           "10Y (p.a.)",
-          2.5
+          2.6
         ],
         [
           "MAX (p.a.)",
-          4.8
+          5.2
         ]
       ]
     },
@@ -1106,9 +1106,9 @@
       "short": "Global Balanced",
       "risk": "MEDIUM RISK",
       "lvl": 1,
-      "nav": "S$1.90",
+      "nav": "S$1.89",
       "size": "S$540M",
-      "ytd": 6.6,
+      "ytd": 5.9,
       "about": "A diversified global mix — developed-market equities balanced with investment-grade bonds.",
       "commentary": "The fund runs slightly overweight equities versus its benchmark, on the soft-landing view. Within bonds it prefers investment-grade credit to treasuries for the extra yield while defaults stay low.",
       "alloc": [
@@ -1175,27 +1175,27 @@
       "returns": [
         [
           "1Y",
-          8.5
+          8.3
         ],
         [
           "YTD",
-          4.3
+          4
         ],
         [
           "3Y (p.a.)",
-          4.3
+          4.8
         ],
         [
           "5Y (p.a.)",
-          5.1
+          5.4
         ],
         [
           "10Y (p.a.)",
-          4.5
+          4
         ],
         [
           "MAX (p.a.)",
-          4.6
+          4.2
         ]
       ]
     },
@@ -1206,7 +1206,7 @@
       "lvl": 2,
       "nav": "S$1.41",
       "size": "S$420M",
-      "ytd": 6.6,
+      "ytd": 6.8,
       "about": "Equities across the developing world — Asia, Latin America and EMEA growth markets.",
       "commentary": "A weaker dollar is the manager's core thesis: it historically unlocks EM outperformance. India and Brazil are the preferred overweights; China is held near benchmark until earnings stabilise.",
       "alloc": [
@@ -1272,27 +1272,27 @@
       "returns": [
         [
           "1Y",
-          11
+          10.7
         ],
         [
           "YTD",
-          7
+          6.9
         ],
         [
           "3Y (p.a.)",
-          4.1
+          4
         ],
         [
           "5Y (p.a.)",
-          3.8
+          3.5
         ],
         [
           "10Y (p.a.)",
-          3.2
+          3.4
         ],
         [
           "MAX (p.a.)",
-          5.7
+          5.9
         ]
       ]
     },
@@ -1361,27 +1361,27 @@
       "returns": [
         [
           "1Y",
-          3.7
+          3.6
         ],
         [
           "YTD",
-          2
+          1.6
         ],
         [
           "3Y (p.a.)",
-          3.5
+          3.2
         ],
         [
           "5Y (p.a.)",
-          7.4
+          7.5
         ],
         [
           "10Y (p.a.)",
-          7.9
+          8
         ],
         [
           "MAX (p.a.)",
-          7.1
+          7.3
         ]
       ]
     },
@@ -1390,9 +1390,9 @@
       "short": "Regional Bonds",
       "risk": "LOWER RISK",
       "lvl": 0,
-      "nav": "S$2.25",
+      "nav": "S$2.26",
       "size": "S$1.5B",
-      "ytd": 4.9,
+      "ytd": 5.5,
       "about": "Singapore and Asian investment-grade bonds — the defensive anchor of a portfolio.",
       "commentary": "With the Fed easing, the manager has extended duration to capture price gains as yields fall. SGD-denominated credit is favoured for stability; no high-yield exposure.",
       "alloc": [
@@ -1454,27 +1454,27 @@
       "returns": [
         [
           "1Y",
-          6
+          6.4
         ],
         [
           "YTD",
-          4.1
+          4.2
         ],
         [
           "3Y (p.a.)",
-          2.7
+          2.9
         ],
         [
           "5Y (p.a.)",
-          2.7
+          3.2
         ],
         [
           "10Y (p.a.)",
-          3.4
+          3.3
         ],
         [
           "MAX (p.a.)",
-          3.1
+          2.9
         ]
       ]
     },
@@ -1483,9 +1483,9 @@
       "short": "Money Market",
       "risk": "LOWER RISK",
       "lvl": 0,
-      "nav": "S$1.38",
+      "nav": "S$1.39",
       "size": "S$900M",
-      "ytd": 1.3,
+      "ytd": 1.8,
       "about": "Short-term SGD deposits and bills — capital preservation and liquidity, not growth.",
       "commentary": "Yields are drifting down with global rates — the manager is clear this is parking money, not growing it. Its role is dry powder and near-term spending needs.",
       "alloc": [
@@ -1522,11 +1522,11 @@
       "returns": [
         [
           "1Y",
-          2.8
+          3.2
         ],
         [
           "YTD",
-          1.2
+          0.7
         ],
         [
           "3Y (p.a.)",
@@ -1538,11 +1538,11 @@
         ],
         [
           "10Y (p.a.)",
-          1.8
+          2.1
         ],
         [
           "MAX (p.a.)",
-          0.8
+          1.3
         ]
       ]
     },
@@ -1615,27 +1615,27 @@
       "returns": [
         [
           "1Y",
-          13.8
+          14.2
         ],
         [
           "YTD",
-          9.2
+          9.6
         ],
         [
           "3Y (p.a.)",
-          8.8
+          9.2
         ],
         [
           "5Y (p.a.)",
-          8.2
+          8.3
         ],
         [
           "10Y (p.a.)",
-          8
+          7.6
         ],
         [
           "MAX (p.a.)",
-          9.7
+          9.9
         ]
       ]
     },
@@ -1713,11 +1713,11 @@
       "returns": [
         [
           "1Y",
-          7.6
+          7.2
         ],
         [
           "YTD",
-          6.4
+          6.9
         ],
         [
           "3Y (p.a.)",
@@ -1725,15 +1725,15 @@
         ],
         [
           "5Y (p.a.)",
-          6
+          5.6
         ],
         [
           "10Y (p.a.)",
-          5.4
+          5.6
         ],
         [
           "MAX (p.a.)",
-          5
+          4.6
         ]
       ]
     }
