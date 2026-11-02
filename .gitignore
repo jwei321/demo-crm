@@ -20,3 +20,4 @@ Thumbs.db
 # Prisma
 prisma/*.db
 prisma/*.db-journal
+repos/
