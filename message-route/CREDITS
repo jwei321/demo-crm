@@ -1,0 +1,12 @@
+There and Back — Isometric Infographic explainer (7 s, 1920×1080, 24 fps)
+
+All picture is drawn in code (Canvas 2D). No generated, photographic or stock imagery.
+- engine.js: isometric engine from the Lemo-Opuscar style library (github.com/lemomo-ai/lemo-opuscar), MIT licence.
+
+Font
+- Jost (Owen Earl / indestructible type*), SIL Open Font License 1.1 — fonts/Jost.ttf, licence fonts/Jost-OFL.txt
+  (source: github.com/google/fonts/tree/main/ofl/jost)
+
+Music and sound
+- Original score and all foley/ambience synthesised in mix.py (numpy/scipy), using helpers from the
+  library's core/audio/sfx.py (MIT). No samples or recordings.
